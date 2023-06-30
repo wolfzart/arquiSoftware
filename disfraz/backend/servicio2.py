@@ -21,8 +21,8 @@ class ExtenderArriendo(Service):
             id_prestamo = climsg["id_prestamo"]
             if db.query(Prestamo).filter(Prestamo.id_prestamo == id_prestamo).first():
                 rent = db.query(Prestamo).filter(Prestamo.id_prestamo == id_prestamo).first()
-                if(fecha >= date.today()):
-                    rent.fecha = fecha
+                if(datetime.strptime(fecha, '%m/%d/%y %H:%M:%S') >= date.today()):
+                    rent.fecha = datetime.strptime(fecha, '%m/%d/%y %H:%M:%S')
                     db.commit()
                     db.close()
                     return 'Fecha actualizada'
