@@ -26,7 +26,9 @@ class ExtenderArriendo(Service):
                     db.commit()
                     db.close()
                     return 'Fecha actualizada'
-                return 'Fecha no Actualizada (fecha anterior a la fecha actual)'    
+                else:
+                    db.close()
+                    return 'Fecha no Actualizada (fecha anterior a la fecha actual)'    
             else:
                 db.close()
                 return "El prestamo no existe"
