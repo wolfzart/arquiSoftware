@@ -35,7 +35,9 @@ class AdministrarProducto(Service):
                     db.commit()
                     db.close()
                     return "Producto Eliminado"
-                return "El producto no existe"
+                else:
+                    db.close()
+                    return "El producto no existe"
             else:
                 db.close()
                 return "Opcion invalida"
