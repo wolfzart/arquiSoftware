@@ -19,9 +19,10 @@ class AdministrarVendedor(Service):
             valor = climsg["valor"]
             if valor == "1":
                 nombre = climsg["nombre"]
+                rut = climsg["rut"]
                 password = climsg["password"]
-                if not db.query(Usuarios).filter(Usuarios.nombre == nombre).first():
-                    user = Usuarios(tipo="Vendedor",contraseña=password,nombre=nombre)
+                if not db.query(Usuarios).filter(Usuarios.id_rut == rut).first():
+                    user = Usuarios(id_rut=rut,tipo="Vendedor",contraseña=password,nombre=nombre)
                     db.add(user)
                     db.commit()
                     db.close()

@@ -1,7 +1,9 @@
 from clients.Client import Client
 from getpass import getpass
 import json
-        
+
+#def cliente10(): 
+
 if __name__ == "__main__":
     print("Cliente Modificar Stock")
     keep_alive = True

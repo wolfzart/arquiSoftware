@@ -1,7 +1,7 @@
 from clients.Client import Client
 from getpass import getpass
 import json
-        
+#def cliente9():         
 if __name__ == "__main__":
     print("Cliente Administrar Vendedores")
     keep_alive = True
@@ -10,6 +10,7 @@ if __name__ == "__main__":
             valor = input("Registrar(1) o Eliminar(2) un Vendedor: ")
             if valor=="1":
                 nombre = input("Ingrese el nombre del vendedor que se va a registrar: ")
+                rut =input("Ingrese el RUT del vendedor: ")
                 password = input("Ingrese la contraseña del usuario: ")
             elif valor=="2":
                 id_rut = input("Ingrese el id del vendedor a eliminar: ")
@@ -20,6 +21,7 @@ if __name__ == "__main__":
                         "nombre": nombre,
                         "valor": valor,
                         "password": password,
+                        "rut":rut
                     }
                     a = Client("ADVEN")
                     msg = a.exec_client(debug=True, climsg=json.dumps(climsg))
@@ -27,7 +29,7 @@ if __name__ == "__main__":
                 elif valor =="2":
                     print("ingrese2")
                     climsg = {
-                        "id_rut": id,
+                        "id_rut": id_rut,
                         "valor": valor,
                     }
                     a = Client("ADVEN")

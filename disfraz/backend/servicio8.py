@@ -17,7 +17,9 @@ class AdministrarProducto(Service):
             print("hola")
             climsg = json.loads(climsg)
             valor = climsg["valor"]
+            sleep(1)
             if valor == "1":
+                print("adios")
                 nombre = climsg["nombre"]
                 precio = climsg["precio"]
                 talla = climsg["talla"]
@@ -29,15 +31,18 @@ class AdministrarProducto(Service):
                 return 'Nuevo producto agregado en el catalogo'    
             elif valor == "2":
                 id = climsg["id"]
+                print("1")
                 if db.query(Producto).filter(Producto.id_producto == id).first():
-                    prod = db.query(Producto).filter(Producto.id_producto == id).first()
-                    db.delete(prod)
+                    print("2")
+                    produ = db.query(Producto).filter(Producto.id_producto == id).first()
+                    print("3")
+                    db.delete(produ)
+                    print("4")
                     db.commit()
+                    print("5")
                     db.close()
                     return "Producto Eliminado"
-                else:
-                    db.close()
-                    return "El producto no existe"
+                return "El producto no existe"
             else:
                 db.close()
                 return "Opcion invalida"

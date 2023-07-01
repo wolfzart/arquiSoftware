@@ -6,7 +6,7 @@ from time import sleep
 
 class InicioSesion(Service):
     def __init__(self):
-        print("Servicio Administracion de Productos")
+        print("Servicio Inicio de sesion")
         super().__init__("INISE")
         self.start_service(debug=True)
 

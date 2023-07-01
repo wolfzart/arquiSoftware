@@ -17,18 +17,17 @@ class ExtenderArriendo(Service):
         try:
             print("hola")
             climsg = json.loads(climsg)
-            fecha = climsg["fecha"]
+            #fecha = climsg["fecha"]
+            fecha = date(int(climsg["año"]),int(climsg["mes"]),int(climsg["dia"]))
             id_prestamo = climsg["id_prestamo"]
             if db.query(Prestamo).filter(Prestamo.id_prestamo == id_prestamo).first():
                 rent = db.query(Prestamo).filter(Prestamo.id_prestamo == id_prestamo).first()
-                if(datetime.strptime(fecha, '%y/%m/%d') >= date.today()):
+                if(fecha >= date.today()):
                     rent.fecha = fecha
                     db.commit()
                     db.close()
                     return 'Fecha actualizada'
-                else:
-                    db.close()
-                    return 'Fecha no Actualizada (fecha anterior a la fecha actual)'    
+                return 'Fecha no Actualizada (fecha anterior a la fecha actual)'    
             else:
                 db.close()
                 return "El prestamo no existe"

@@ -18,27 +18,42 @@ class Registrar_arriendo(Service):
         try:
             print("hola")
             climsg = json.loads(climsg)
-            prestamo = climsg["id_prest"]
-            producto = climsg["id_producto"]
-            cantidad = climsg["cantproducto"]
-            fecha_prestamo = climsg["fecha"]
-            nombre_cli = climsg["nombre_cliente"]
-            direccion_cli = climsg["direccion_cliente"]
-            numero_cli = climsg["numero_cliente"]
-            rut_cli = climsg["id_rut_cliente"]
-            if not db.query(Prestamo).filter(Prestamo.id_prestamo == prestamo).first():
-                cliente = Clientes(id_cli= rut_cli ,direccion = direccion_cli,nombre=nombre_cli ,telefono=  numero_cli )
+            #prestamo = climsg["id_prest"]
+            producto = climsg["id_pro"]
+            cantidad = climsg["cant_pro"]
+
+
+            fecha_prestamo = date(int(climsg["año"]),int(climsg["mes"]),int(climsg["dia"]))
+            
+            
+            nombre_cli = climsg["nom_cli"]
+            direccion_cli = climsg["dir_cli"]
+            numero_cli = climsg["num_cli"]
+            rut_cli = climsg["rut_cli"]
+            if not db.query(Clientes).filter(Clientes.id_cli==rut_cli).first():
+                #print("hola")
+            #if not db.query(Prestamo).filter(Prestamo.id_prestamo == prestamo).first():
+                cliente = Clientes(id_cli = rut_cli ,direccion = direccion_cli,nombre = nombre_cli ,telefono = numero_cli )
                 db.add(cliente)
                 db.commit()
-                db.close()
-                arriendo = Prestamo(id_producto=producto,id_cli=rut_cli,fecha= fecha_prestamo, cantproducto= cantidad)
+                #db.close()
+                #print("22")
+                arriendo = Prestamo(id_producto=producto,id_cli=rut_cli,fecha= fecha_prestamo, cantproducto = cantidad, devolucion = False)
+                #print("23")
                 db.add(arriendo)
                 db.commit()
                 db.close()
                 return 'prestamo realizado'
+                print('prestamo realizado')
             else:
-                    db.close()
-                    return "error"
+                arriendo = Prestamo(id_producto=producto,id_cli=rut_cli,fecha= fecha_prestamo, cantproducto = cantidad, devolucion = False)
+                print("23")
+                db.add(arriendo)
+                db.commit()
+                db.close()
+                return 'prestamo realizado'
+                print('prestamo realizado')
+            return "jhasbdhjas" 
         except Exception as e:
             db.close()
             return str(e)

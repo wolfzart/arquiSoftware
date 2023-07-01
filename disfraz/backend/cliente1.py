@@ -1,7 +1,9 @@
 from clients.Client import Client
 from getpass import getpass
 import json
-        
+
+#def cliente1(): 
+
 if __name__ == "__main__":
     print("cliente registrar prestamos")
     keep_alive =True
@@ -9,7 +11,12 @@ if __name__ == "__main__":
         while(keep_alive):
             id_producto = input("Ingrese el id del producto: ")
             cantproducto = input("Ingrese la cantidad del producto: ")
-            fecha = input("Ingrese la fecha de devolucion (DD/MM/AA): ")
+            print("Ingrese fecha de entrega\n")
+            
+            dia = input("ingrese dia: ")
+            mes = input("Ingrese mes: ")
+            año = input ("ingrese año: ")
+
             id_rut_cliente  = input("Ingrese el rut del cliente: ")
             direccion_cliente  = input("Ingrese la direccion del cliente: ")
             nombre_cliente  = input("Ingrese el nombre del cliente: ")
@@ -19,7 +26,10 @@ if __name__ == "__main__":
                 climsg = {
                     "id_pro": id_producto,
                     "cant_pro": cantproducto ,
-                    "fecha": fecha,
+                    "dia": dia,
+                    "mes": mes,
+                    "año": año,
+                    #"fecha": fecha,
                     "rut_cli": id_rut_cliente,
                     "dir_cli": direccion_cliente,
                     "nom_cli": nombre_cliente,
@@ -34,4 +44,3 @@ if __name__ == "__main__":
         print("\nCerrando cliente, hasta pronto ....")
         keep_alive = False
         exit()  
-

@@ -1,11 +1,10 @@
+import json, os, datetime
 from clients.Service import Service
 from database.session import session
-from database.models import Prestamo, Producto
-from clients.Client import Client
-from getpass import getpass
-import json, os, datetime
 from time import sleep
 from datetime import date
+from database.models import Prestamo
+from database.models import Producto
 
 class RecepcionDisfraces(Service):
     def __init__(self):
@@ -22,11 +21,12 @@ class RecepcionDisfraces(Service):
             id = climsg["id"]
             rent = db.query(Prestamo).filter(Prestamo.id_prestamo == id).first()
             prod = db.query(Producto).filter(Producto.id_producto == rent.id_producto).first()
-            plannedDay = date.today().day
-            deliverDay = datetime.strptime(rent.fecha, '%y/%m/%d').day
-            days = deliverDay - plannedDay
-            multa = ((int(prod.precio) * int(rent.cantproducto)) * 0.1) * days
-            return multa
+            fechaActual = date.today()
+            diferencia = fechaActual-rent.fecha
+            multa = ((int(prod.precio) * int(rent.cantproducto)) * 0.1) * diferencia.days
+            db.close
+            print(multa)
+            return str(int(multa))
         except Exception as e:
             db.close()
             return str(e)

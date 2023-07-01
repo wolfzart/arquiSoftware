@@ -2,9 +2,11 @@ from clients.Client import Client
 from getpass import getpass
 from datetime import date
 import json
-        
+
+#def cliente6(): 
+
 if __name__ == "__main__":
-    print("Cliente Modificar Stock")
+    print("Cliente Inisio de Sesion")
     keep_alive = True
     try:
         while(keep_alive):

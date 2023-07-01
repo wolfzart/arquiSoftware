@@ -1,6 +1,8 @@
 from clients.Client import Client
 from getpass import getpass
 import json
+
+#def cliente5(): 
         
 if __name__ == "__main__":
     print("Cliente Recepcion Disfraces")

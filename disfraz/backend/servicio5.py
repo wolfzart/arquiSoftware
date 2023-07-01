@@ -20,26 +20,34 @@ class RecepcionDisfraces(Service):
             print("hola")
             climsg = json.loads(climsg)
             id = climsg["id"]
-            if db.query(Prestamo).filter(Prestamo.id_prestamo == id).first():
+            if db.query(Prestamo).filter(Prestamo.id_prestamo == id, Prestamo.devolucion == False).first():
                 rent = db.query(Prestamo).filter(Prestamo.id_prestamo == id).first()
-                if date.today() <= datetime.strptime(rent.fecha, '%y/%m/%d'):
+                rent.devolucion=True
+                db.commit()
+                if date.today() <= rent.fecha:  
                     prod = db.query(Producto).filter(Producto.id_producto == rent.id_producto).first()
                     monto = int(prod.precio) * int(rent.cantproducto)
-                    return monto
+                    
+                    db.close
+                    return str(monto)
                 else:
                     a = Client("MULTA")
                     dataCliente = {
                         "id": id,
                     }
                     multa = a.exec_client(debug=True, climsg=json.dumps(dataCliente))
+                    
                     prod = db.query(Producto).filter(Producto.id_producto == rent.id_producto).first()
-                    monto = multa + (int(prod.precio) * int(rent.cantproducto))
-                    return monto
+                    
+                    monto = int(multa) + (int(prod.precio) * int(rent.cantproducto))
+                    
+                    db.close
+                    return str(monto)
                     
             else:
                 db.close()
-                print("No existe un prestamo con esta id")
-                return 0
+                print("No existe un prestamo con esta id o devolucion ya fue realizada")
+                return "No existe un prestamo con esta id o devolucion ya fue realizada"
         except Exception as e:
             db.close()
             return str(e)

@@ -1,7 +1,10 @@
 from clients.Client import Client
 from getpass import getpass
 import json
-        
+
+
+#def cliente8(): 
+
 if __name__ == "__main__":
     print("Cliente Administrar Producto")
     keep_alive = True
@@ -23,6 +26,7 @@ if __name__ == "__main__":
                         "valor": valor,
                         "talla": talla,
                         "stock": stock,
+                        "precio": precio
                     }
                     a = Client("ADPRO")
                     msg = a.exec_client(debug=True, climsg=json.dumps(climsg))
